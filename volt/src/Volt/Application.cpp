@@ -5,6 +5,10 @@
 #include "Events/ApplicationEvent.h"
 #include <glad/glad.h>
 
+#include "Core/Input.h"
+#include "Core/MouseCodes.h"
+#include "Core/KeyCodes.h"
+
 namespace Volt
 {
 	Application *Application::s_Instance = nullptr;

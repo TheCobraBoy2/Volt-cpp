@@ -25,6 +25,10 @@ add_library(Volt SHARED
     src/Volt/Core/LayerStack.h
     src/Volt/Core/LayerStack.cpp
     src/Volt/ImGui/ImGuiLayer.cpp
+    src/Volt/Core/Input.h
+    src/Volt/Util/Types/Vector2.h
+    src/Platform/Windows/WindowsInput.cpp
+    src/Platform/Windows/WindowsInput.h
 )
 
 target_include_directories(Volt

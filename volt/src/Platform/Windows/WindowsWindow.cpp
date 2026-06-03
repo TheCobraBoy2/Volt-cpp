@@ -38,7 +38,7 @@ namespace Volt
         data_.Width = props.Width;
         data_.Height = props.Height;
 
-        VT_CORE_INFO("Creating window {0} ({1}, {2})", props.Title, props.Width, props.Height);
+        VT_CORE_TRACE("Creating window {0} ({1}, {2})", props.Title, props.Width, props.Height);
 
         if (!s_GLFWInitialized)
         {
@@ -142,6 +142,12 @@ namespace Volt
             WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
 
             MouseMovedEvent event((float)xPos, (float)yPos);
+            data.EventCallback(event); });
+
+        glfwSetCharCallback(window_, [](GLFWwindow *window, unsigned int keycode)
+                            {
+            WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+            KeyTypedEvent event(keycode);
             data.EventCallback(event); });
     }
 
