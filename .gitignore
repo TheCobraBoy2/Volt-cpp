@@ -1,0 +1,5 @@
+**/*.log
+imgui.ini
+**/vendor
+.vscode
+build
