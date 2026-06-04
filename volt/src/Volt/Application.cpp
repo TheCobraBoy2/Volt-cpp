@@ -22,6 +22,7 @@ namespace Volt
 
 		imguiLayer_ = new ImGuiLayer();
 		PushOverlay(imguiLayer_);
+		VT_CORE_TRACE("Application created!");
 	}
 
 	Application::~Application()

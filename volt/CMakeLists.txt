@@ -39,7 +39,7 @@ target_include_directories(Volt
     ${VOLT_INTERNAL}
 )
 
-target_link_libraries(Volt PUBLIC spdlog::spdlog glad glm glfw imgui)
+target_link_libraries(Volt PUBLIC spdlog::spdlog glad glm glfw imgui $<$<PLATFORM_ID:Windows>:dwmapi>)
 target_precompile_headers(Volt PRIVATE
     "${VOLT_SRC}/vtpch.h"
 )

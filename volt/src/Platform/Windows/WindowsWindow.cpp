@@ -9,6 +9,29 @@
 
 #include <glad/glad.h>
 
+#ifdef _WIN32
+#define GLFW_EXPOSE_NATIVE_WIN32
+#include <GLFW/glfw3.h>
+#include <GLFW/glfw3native.h>
+#include <dwmapi.h>
+#pragma comment(lib, "dwmapi.lib")
+
+#ifndef DWMWA_USE_IMMERSIVE_DARK_MODE
+#define DWMWA_USE_IMMERSIVE_DARK_MODE 20
+#endif
+
+void SetDarkTitleBar(GLFWwindow *window)
+{
+    HWND hwnd = glfwGetWin32Window(window);
+    BOOL dark = TRUE;
+    DwmSetWindowAttribute(
+        hwnd,
+        DWMWA_USE_IMMERSIVE_DARK_MODE,
+        &dark,
+        sizeof(dark));
+}
+#endif
+
 namespace Volt
 {
     static bool s_GLFWInitialized = false;
@@ -48,6 +71,7 @@ namespace Volt
                 glfwTerminate();
                 Volt::Backend::close(VOLT::FAILURE_TO_INITIALIZE, "GLFW Failed to Initialize");
             }
+            VT_CORE_TRACE("GLFW Initialized!");
 
             glfwSetErrorCallback(GLFWErrorCallback);
 
@@ -61,12 +85,18 @@ namespace Volt
             glfwTerminate();
             Volt::Backend::close(VOLT::FAILURE_TO_CREATE_WINDOW, "Failed to create Window");
         }
+        VT_CORE_TRACE("Window created!");
+#ifdef _WIN32
+        SetDarkTitleBar(window_);
+        VT_CORE_TRACE("Dark window decoration set!");
+#endif
         glfwMakeContextCurrent(window_);
         if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
         {
             glfwDestroyWindow(window_);
             Volt::Backend::close(VOLT::FAILURE_TO_INITIALIZE, "GLAD Failed to Initialize");
         }
+        VT_CORE_TRACE("GLAD Initialized!");
         glfwSetWindowUserPointer(window_, &data_);
         SetVSync(true);
 
@@ -149,6 +179,7 @@ namespace Volt
             WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
             KeyTypedEvent event(keycode);
             data.EventCallback(event); });
+        VT_CORE_TRACE("GLFW Callbacks Set!");
     }
 
     void WindowsWindow::Shutdown()

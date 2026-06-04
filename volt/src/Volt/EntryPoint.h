@@ -4,6 +4,8 @@
 #include <Volt/Core/ExitCodes.h>
 
 #ifdef VOLT_PLATFORM_WINDOWS
+#ifndef MAINCREATED
+#define MAINCREATED
 extern Volt::Application *Volt::CreateApplication();
 int main(int argc, char **argv)
 {
@@ -14,4 +16,5 @@ int main(int argc, char **argv)
 	delete app;
 	Volt::Backend::closeSuccess;
 }
+#endif
 #endif

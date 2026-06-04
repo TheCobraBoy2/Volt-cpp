@@ -9,6 +9,8 @@
 #include <backends/imgui_impl_glfw.h>
 #include <backends/imgui_impl_opengl3.h>
 
+#include <Volt/Core/Log.h>
+
 #include <GLFW/glfw3.h>
 
 namespace Volt
@@ -21,6 +23,7 @@ namespace Volt
     {
         IMGUI_CHECKVERSION();
         ImGui::CreateContext();
+        VT_CORE_TRACE("ImGui context created!");
 
         ImGuiIO &io = ImGui::GetIO();
         (void)io;
@@ -30,7 +33,10 @@ namespace Volt
         io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
         io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
 
+        VT_CORE_TRACE("ImGui IO Configured!");
+
         ImGui::StyleColorsDark();
+        VT_CORE_TRACE("ImGui style set!");
 
         ImGuiStyle &style = ImGui::GetStyle();
         if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
@@ -40,10 +46,12 @@ namespace Volt
         }
 
         SetDarkThemeColors();
+        VT_CORE_TRACE("ImGui dark theme set!");
 
         GLFWwindow *window = static_cast<GLFWwindow *>(Application::Get().GetWindow().GetNativeWindow());
         ImGui_ImplGlfw_InitForOpenGL(window, true);
         ImGui_ImplOpenGL3_Init("#version 410");
+        VT_CORE_TRACE("ImGui backends initialized!");
     }
 
     void ImGuiLayer::OnDetach()
@@ -51,6 +59,7 @@ namespace Volt
         ImGui_ImplOpenGL3_Shutdown();
         ImGui_ImplGlfw_Shutdown();
         ImGui::DestroyContext();
+        VT_CORE_TRACE("ImGui context destroyed!");
     }
 
     void ImGuiLayer::OnEvent(Event &e)
