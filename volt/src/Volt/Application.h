@@ -5,10 +5,11 @@
 #include "Events/Event.h"
 #include "Events/ApplicationEvent.h"
 #include "Window.h"
+#include "ImGui/ImGuiLayer.h"
 
 namespace Volt
 {
-	class VOLT_API Application
+	class Application
 	{
 	public:
 		Application();
@@ -27,6 +28,7 @@ namespace Volt
 		bool OnWindowClose(WindowCloseEvent &e);
 
 		std::unique_ptr<Window> window_;
+		ImGuiLayer *imguiLayer_;
 		bool running_ = true;
 		LayerStack layerStack_;
 

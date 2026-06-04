@@ -4,7 +4,7 @@
 
 namespace Volt
 {
-    class VOLT_API WindowResizeEvent : public Event
+    class WindowResizeEvent : public Event
     {
     public:
         WindowResizeEvent(unsigned int width, unsigned int height) : width_(width), height_(height) {}
@@ -25,7 +25,7 @@ namespace Volt
         unsigned int width_, height_;
     };
 
-    class VOLT_API WindowCloseEvent : public Event
+    class  WindowCloseEvent : public Event
     {
     public:
         WindowCloseEvent() = default;
@@ -34,7 +34,7 @@ namespace Volt
         EVENT_CLASS_CATEGORY(EventCategoryApplication)
     };
 
-    class VOLT_API AppTickEvent : public Event
+    class  AppTickEvent : public Event
     {
     public:
         AppTickEvent() = default;
@@ -43,7 +43,7 @@ namespace Volt
         EVENT_CLASS_CATEGORY(EventCategoryApplication)
     };
 
-    class VOLT_API AppUpdateEvent : public Event
+    class  AppUpdateEvent : public Event
     {
     public:
         AppUpdateEvent() = default;
@@ -52,7 +52,7 @@ namespace Volt
         EVENT_CLASS_CATEGORY(EventCategoryApplication)
     };
 
-    class VOLT_API AppRenderEvent : public Event
+    class  AppRenderEvent : public Event
     {
     public:
         AppRenderEvent() = default;

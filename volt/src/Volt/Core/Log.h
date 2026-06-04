@@ -1,16 +1,21 @@
 #pragma once
 
-#include <Volt/Core/Base.h>
+#define GLM_ENABLE_EXPERIMENTAL
+
+#include "Base.h"
+#include <Volt/Events/Event.h>
+
 #pragma warning(push, 0)
 #include <spdlog/spdlog.h>
 #include <spdlog/fmt/ostr.h>
-#pragma warning(pop)
 #include <spdlog/sinks/stdout_color_sinks.h>
-#include <vtpch.h>
+#pragma warning(pop)
+
+#include <glm/gtx/string_cast.hpp>
 
 namespace Volt::Backend::INT
 {
-    class VOLT_API Log
+    class Log
     {
     public:
         static void Init();
@@ -23,6 +28,66 @@ namespace Volt::Backend::INT
         static Volt::Ref<spdlog::logger> s_ClientLogger;
     };
 }
+
+template <>
+struct fmt::formatter<Volt::Event>
+{
+    constexpr auto parse(format_parse_context &ctx)
+    {
+        return ctx.end();
+    }
+
+    template <typename FormatContext>
+    auto format(const Volt::Event &e, FormatContext &ctx) const
+    {
+        return fmt::format_to(ctx.out(), "{}", e.ToString());
+    }
+};
+
+template <glm::length_t L, typename T, glm::qualifier Q>
+struct fmt::formatter<glm::vec<L, T, Q>>
+{
+    constexpr auto parse(format_parse_context &ctx)
+    {
+        return ctx.end();
+    }
+
+    template <typename FormatContext>
+    auto format(const glm::vec<L, T, Q> &v, FormatContext &ctx) const
+    {
+        return fmt::format_to(ctx.out(), "{}", glm::to_string(v));
+    }
+};
+
+template <glm::length_t C, glm::length_t R, typename T, glm::qualifier Q>
+struct fmt::formatter<glm::mat<C, R, T, Q>>
+{
+    constexpr auto parse(format_parse_context &ctx)
+    {
+        return ctx.end();
+    }
+
+    template <typename FormatContext>
+    auto format(const glm::mat<C, R, T, Q> &m, FormatContext &ctx) const
+    {
+        return fmt::format_to(ctx.out(), "{}", glm::to_string(m));
+    }
+};
+
+template <typename T, glm::qualifier Q>
+struct fmt::formatter<glm::qua<T, Q>>
+{
+    constexpr auto parse(format_parse_context &ctx)
+    {
+        return ctx.end();
+    }
+
+    template <typename FormatContext>
+    auto format(const glm::qua<T, Q> &q, FormatContext &ctx) const
+    {
+        return fmt::format_to(ctx.out(), "{}", glm::to_string(q));
+    }
+};
 
 #define VT_CORE_TRACE(...) ::Volt::Backend::INT::Log::GetCoreLogger()->trace(__VA_ARGS__)
 #define VT_CORE_INFO(...) ::Volt::Backend::INT::Log::GetCoreLogger()->info(__VA_ARGS__)

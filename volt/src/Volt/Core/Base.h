@@ -2,16 +2,6 @@
 #include <Volt/Core/PlatformDetection.h>
 #include <memory>
 
-#ifdef _WIN32
-#ifdef VOLT_BUILD_DLL
-#define VOLT_API __declspec(dllexport)
-#else
-#define VOLT_API __declspec(dllimport)
-#endif
-#else
-#define VOLT_API
-#endif
-
 #ifdef VOLT_ENABLE_ASSERTS
 #define VT_CORE_ASSERT(x, ...)                                   \
     {                                                            \

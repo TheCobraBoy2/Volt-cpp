@@ -10,7 +10,7 @@ typedef LayerVec::iterator LayerIter;
 
 namespace Volt
 {
-    class VOLT_API LayerStack
+    class LayerStack
     {
     public:
         LayerStack();
@@ -26,6 +26,6 @@ namespace Volt
 
     private:
         LayerVec layers_;
-        LayerIter layerInsert_;
+        unsigned int layerInsertIndex_ = 0;
     };
 }

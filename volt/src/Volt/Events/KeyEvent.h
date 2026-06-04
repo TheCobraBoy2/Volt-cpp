@@ -17,7 +17,7 @@ namespace Volt
         KeyCode keyCode_;
     };
 
-    class VOLT_API KeyPressedEvent : public KeyEvent
+    class KeyPressedEvent : public KeyEvent
     {
     public:
         KeyPressedEvent(const KeyCode keycode, bool isRepeat = false)
@@ -37,7 +37,7 @@ namespace Volt
         bool m_IsRepeat;
     };
 
-    class VOLT_API KeyReleasedEvent : public KeyEvent
+    class KeyReleasedEvent : public KeyEvent
     {
     public:
         KeyReleasedEvent(const KeyCode keycode)
@@ -53,7 +53,7 @@ namespace Volt
         EVENT_CLASS_TYPE(KeyReleased)
     };
 
-    class VOLT_API KeyTypedEvent : public KeyEvent
+    class KeyTypedEvent : public KeyEvent
     {
     public:
         KeyTypedEvent(const KeyCode keycode)

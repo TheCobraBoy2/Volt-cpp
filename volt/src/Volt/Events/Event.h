@@ -42,7 +42,7 @@ namespace Volt
 #define EVENT_CLASS_CATEGORY(category) \
     virtual int GetCategoryFlags() const override { return category; }
 
-    class VOLT_API Event
+    class Event
     {
         friend class EventDispatcher;
 
@@ -60,7 +60,7 @@ namespace Volt
         bool Handled = false;
     };
 
-    class VOLT_API EventDispatcher
+    class EventDispatcher
     {
         template <typename T>
         using EventFn = std::function<bool(T &)>;

@@ -3,7 +3,7 @@ set(VOLT_SRC ${VOLT_ROOT}/src)
 set(VOLT_ACT ${VOLT_SRC}/Volt)
 set(VOLT_INTERNAL ${VOLT_ROOT}/internal)
 
-add_library(Volt SHARED
+add_library(Volt STATIC
     ${VOLT_SRC}/Volt.h
     ${VOLT_ACT}/Application.cpp
     ${VOLT_ACT}/Application.h
@@ -29,6 +29,7 @@ add_library(Volt SHARED
     src/Volt/Util/Types/Vector2.h
     src/Platform/Windows/WindowsInput.cpp
     src/Platform/Windows/WindowsInput.h
+    src/Volt/ImGui/ImGuiBuild.cpp
 )
 
 target_include_directories(Volt
@@ -42,5 +43,3 @@ target_link_libraries(Volt PUBLIC spdlog::spdlog glad glm glfw imgui)
 target_precompile_headers(Volt PRIVATE
     "${VOLT_SRC}/vtpch.h"
 )
-
-target_compile_definitions(Volt PRIVATE VOLT_BUILD_DLL)

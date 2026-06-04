@@ -5,7 +5,6 @@ namespace Volt
 {
     LayerStack::LayerStack()
     {
-        layerInsert_ = layers_.begin();
     }
 
     LayerStack::~LayerStack()
@@ -16,7 +15,8 @@ namespace Volt
 
     void LayerStack::PushLayer(Layer *layer)
     {
-        layerInsert_ = layers_.emplace(layerInsert_, layer);
+        layers_.emplace(begin() + layerInsertIndex_, layer);
+        layerInsertIndex_++;
     }
 
     void LayerStack::PushOverlay(Layer *overlay)
@@ -30,7 +30,7 @@ namespace Volt
         if (it != layers_.end())
         {
             layers_.erase(it);
-            layerInsert_--;
+            layerInsertIndex_--;
         }
     }
 

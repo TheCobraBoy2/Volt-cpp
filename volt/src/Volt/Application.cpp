@@ -19,6 +19,9 @@ namespace Volt
 
 		window_ = std::unique_ptr<Window>(Window::Create());
 		window_->SetEventCallback(VT_BIND_EVENT_FN(Application::OnEvent));
+
+		imguiLayer_ = new ImGuiLayer();
+		PushOverlay(imguiLayer_);
 	}
 
 	Application::~Application()
@@ -60,6 +63,11 @@ namespace Volt
 
 			for (Layer *layer : layerStack_)
 				layer->OnUpdate();
+
+			imguiLayer_->Begin();
+			for (Layer *layer : layerStack_)
+				layer->OnImGuiRender();
+			imguiLayer_->End();
 
 			window_->OnUpdate();
 		}

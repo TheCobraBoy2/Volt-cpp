@@ -8,7 +8,7 @@
 namespace Volt
 {
     template <typename T>
-    class VOLT_API Vector2
+    class Vector2
     {
     public:
         using ValueType = T;
