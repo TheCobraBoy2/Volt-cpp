@@ -15,7 +15,7 @@
 
 namespace Volt
 {
-    ImGuiLayer::ImGuiLayer() : Layer("ImGuiLayer") {}
+    ImGuiLayer::ImGuiLayer(bool dockingEnabled, bool viewportsEnabled) : Layer("ImGuiLayer"), dockingEnabledStartup_(dockingEnabled), viewportsEnabledStartup_(viewportsEnabled) {}
 
     ImGuiLayer::~ImGuiLayer() {}
 
@@ -30,8 +30,16 @@ namespace Volt
 
         io.BackendFlags |= ImGuiBackendFlags_HasMouseCursors;
         io.BackendFlags |= ImGuiBackendFlags_HasSetMousePos;
-        io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
-        io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
+
+        if (dockingEnabledStartup_)
+        {
+            io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
+        }
+
+        if (viewportsEnabledStartup_)
+        {
+            io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
+        }
 
         VT_CORE_TRACE("ImGui IO Configured!");
 

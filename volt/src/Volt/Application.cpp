@@ -13,14 +13,14 @@ namespace Volt
 {
 	Application *Application::s_Instance = nullptr;
 
-	Application::Application()
+	Application::Application(const ApplicationSpecification &spec) : spec_(spec)
 	{
 		s_Instance = this;
 
-		window_ = std::unique_ptr<Window>(Window::Create());
+		window_ = std::unique_ptr<Window>(Window::Create(WindowProps(spec.Name)));
 		window_->SetEventCallback(VT_BIND_EVENT_FN(Application::OnEvent));
 
-		imguiLayer_ = new ImGuiLayer();
+		imguiLayer_ = new ImGuiLayer(spec.DockingEnabled, spec.ViewportsEnabled);
 		PushOverlay(imguiLayer_);
 		VT_CORE_TRACE("Application created!");
 	}

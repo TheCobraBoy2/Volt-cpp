@@ -61,7 +61,7 @@ namespace Volt
         data_.Width = props.Width;
         data_.Height = props.Height;
 
-        VT_CORE_TRACE("Creating window {0} ({1}, {2})", props.Title, props.Width, props.Height);
+        VT_CORE_TRACE("Creating window \"{0}\" ({1}, {2})", props.Title, props.Width, props.Height);
 
         if (!s_GLFWInitialized)
         {

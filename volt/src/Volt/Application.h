@@ -6,13 +6,22 @@
 #include "Events/ApplicationEvent.h"
 #include "Window.h"
 #include "ImGui/ImGuiLayer.h"
+#include "Util/Types.h"
 
 namespace Volt
 {
+	struct ApplicationSpecification
+	{
+		std::string Name = "Volt Application";
+		Vector2u_i WindowSize = {1280, 720};
+		bool DockingEnabled = true;
+		bool ViewportsEnabled = true;
+	};
+
 	class Application
 	{
 	public:
-		Application();
+		Application(const ApplicationSpecification &spec = ApplicationSpecification());
 		virtual ~Application();
 
 		void Run();
@@ -34,6 +43,7 @@ namespace Volt
 
 	private:
 		static Application *s_Instance;
+		ApplicationSpecification spec_;
 	};
 
 	// To be defined in client

@@ -11,7 +11,7 @@ namespace Volt
     class ImGuiLayer : public Layer
     {
     public:
-        ImGuiLayer();
+        ImGuiLayer(bool dockingEnabled, bool viewportsEnabled);
         ~ImGuiLayer();
 
         virtual void OnAttach() override;
@@ -28,5 +28,6 @@ namespace Volt
     private:
         float time_ = 0.0F;
         bool blockEvents_ = true;
+        bool dockingEnabledStartup_, viewportsEnabledStartup_;
     };
 }

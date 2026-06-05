@@ -2,9 +2,11 @@
 
 #include <Volt.h>
 #include <imgui.h>
-
 class ExampleLayer : public Volt::Layer
 {
+private:
+	bool show = true;
+
 public:
 	ExampleLayer() : Layer("Example") {}
 
@@ -14,22 +16,31 @@ public:
 
 	void OnEvent(Volt::Event &event) override
 	{
+		Volt::EventDispatcher dispatcher(event);
+		dispatcher.Dispatch<Volt::KeyPressedEvent>([this](Volt::KeyPressedEvent &e)
+												   {
+			if (e.GetKeyCode() == Volt::Key::F2) {
+				VT_TRACE("Toggling ImGui Demo Window");
+				show = !show;
+				return true;
+			} 
+			return false; });
 	}
 
 	void OnImGuiRender() override
 	{
-		static bool show = true;
-		ImGui::ShowDemoWindow(&show);
+		if (show)
+			ImGui::ShowDemoWindow(&show);
 	}
 };
 
 class Installer : public Volt::Application
 {
 public:
-	Installer()
+	Installer(const Volt::ApplicationSpecification &specification)
+		: Volt::Application(specification)
 	{
 		PushLayer(new ExampleLayer());
-		// PushOverlay(new Volt::ImGuiLayer());
 	}
 
 	~Installer()
@@ -39,5 +50,9 @@ public:
 
 Volt::Application *Volt::CreateApplication()
 {
-	return new Installer();
+	Volt::ApplicationSpecification spec;
+	spec.Name = "My Volt App";
+	spec.ViewportsEnabled = false;
+
+	return new Installer(spec);
 }

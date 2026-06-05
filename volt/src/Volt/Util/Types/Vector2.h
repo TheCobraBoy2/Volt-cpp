@@ -96,4 +96,5 @@ namespace Volt
     using Vector2f = Vector2<float>;
     using Vector2i = Vector2<int>;
     using Vector2d = Vector2<double>;
+    using Vector2u_i = Vector2<unsigned int>;
 }
