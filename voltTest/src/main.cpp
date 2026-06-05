@@ -52,7 +52,6 @@ Volt::Application *Volt::CreateApplication()
 {
 	Volt::ApplicationSpecification spec;
 	spec.Name = "My Volt App";
-	spec.ViewportsEnabled = false;
 
 	return new Installer(spec);
 }
